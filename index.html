@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Bank</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Color widget -->
+    <div class="widget">
+        <div title="Click Here" class="aqua" id="aqua-bg"></div>
+        <div title="Click Here" class="teal" id="teal-bg"></div>
+    </div>
+
+    <!-- Login section -->
+    <section class="container" id="login-area">
+        <h1 class="text-center">Welcome to Golden Bank</h1>
+        <div class="submit-area">
+            <h4>Login</h4>
+            <input type="text" class="form-control" placeholder="Username" ><br>
+            <input type="password" class="form-control" placeholder="Password"><br>
+            <button id="login-button" class="btn btn-success">Login</button>
+         </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section class="container" id="dashboard">
+        <div class="top-section">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="deposit bl-status">
+                        <h5>Deposit</h5>
+                        <h2>$ <span id="currentDeposit">00</span></h2>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="withdraw bl-status">
+                        <h5>Withdraw</h5>
+                        <h2>$00</h2>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="balance bl-status">
+                        <h5>Balance</h5>
+                        <h2>$ <span id="currentBalance">00</span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-section">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="submit-area">
+                        <h4>Deposit</h4>
+                        <input id="depositAmount" type="number" class="form-control" placeholder="amount"><br>
+                        <button id="depositBtn" class="btn btn-success">Send</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="submit-area">
+                        <h4>Withdraw</h4>
+                        <input id="withdrawAmount" type="number" class="form-control" placeholder="amount"><br>
+                        <button id="withdrawBtn" class="btn btn-success">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    
+    <script>
+        // Color Widget
+        const aquaBg = document.getElementById("aqua-bg");
+        aquaBg.addEventListener("click", function(){
+            document.body.style.backgroundColor="aqua";
+        });
+        const tealBg = document.getElementById("teal-bg");
+        tealBg.addEventListener("click", function(){
+            document.body.style.backgroundColor="teal";
+        });
+        // Login Function
+        const loginButton = document.getElementById("login-button");
+        loginButton.addEventListener("click", function(){
+            const loginPage = document.getElementById("login-area");
+            loginPage.style.display = "none";
+            const dashboard = document.getElementById("dashboard");
+            dashboard.style.display = "block";
+        });
+
+        // Dashboard
+        const depositBtn = document.getElementById("depositBtn");
+        depositBtn.addEventListener("click",function(){
+            const depositAmount= document.getElementById("depositAmount").value;
+            const depositNumber= parseFloat(depositAmount);
+
+            // Deposit
+            const currentDeposit= document.getElementById("currentDeposit").innerText;
+            const currentDepositNumber = parseFloat(currentDeposit);
+            const totalDeposit= depositNumber+currentDepositNumber;
+            document.getElementById("currentDeposit").innerText= totalDeposit;
+            
+
+            // Balance
+            const currentBalance= document.getElementById("currentBalance").innerText;
+            const currentBalanceNumber= parseFloat(currentBalance);
+            const totalBalance= depositNumber+currentBalanceNumber;
+            document.getElementById("currentBalance").innerText= totalBalance;
+
+
+
+            document.getElementById("depositAmount").value= "";
+
+
+        });
+
+    </script>
+    
+</body>
+</html>
