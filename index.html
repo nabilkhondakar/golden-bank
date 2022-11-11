@@ -39,13 +39,13 @@
                 <div class="col-md-4">
                     <div class="withdraw bl-status">
                         <h5>Withdraw</h5>
-                        <h2>$00</h2>
+                        <h2>$ <span id="currentWithdraw">00</span></h2>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="balance bl-status">
                         <h5>Balance</h5>
-                        <h2>$ <span id="currentBalance">00</span></h2>
+                        <h2>$ <span id="currentBalance">20</span></h2>
                     </div>
                 </div>
             </div>
@@ -55,14 +55,14 @@
                 <div class="col-md-6">
                     <div class="submit-area">
                         <h4>Deposit</h4>
-                        <input id="depositAmount" type="number" class="form-control" placeholder="amount"><br>
+                        <input id="depositInput" type="number" class="form-control" placeholder="amount"><br>
                         <button id="depositBtn" class="btn btn-success">Send</button>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="submit-area">
                         <h4>Withdraw</h4>
-                        <input id="withdrawAmount" type="number" class="form-control" placeholder="amount"><br>
+                        <input id="withdrawInput" type="number" class="form-control" placeholder="amount"><br>
                         <button id="withdrawBtn" class="btn btn-success">Send</button>
                     </div>
                 </div>
@@ -91,31 +91,44 @@
             dashboard.style.display = "block";
         });
 
-        // Dashboard
+        // deposit button event handler
         const depositBtn = document.getElementById("depositBtn");
         depositBtn.addEventListener("click",function(){
-            const depositAmount= document.getElementById("depositAmount").value;
-            const depositNumber= parseFloat(depositAmount);
+            const depositInputNumber= getInputNumber("depositInput");
 
-            // Deposit
-            const currentDeposit= document.getElementById("currentDeposit").innerText;
-            const currentDepositNumber = parseFloat(currentDeposit);
-            const totalDeposit= depositNumber+currentDepositNumber;
-            document.getElementById("currentDeposit").innerText= totalDeposit;
-            
+            updateSpanText("currentDeposit",depositInputNumber);
+            updateSpanText("currentBalance", depositInputNumber);
 
-            // Balance
-            const currentBalance= document.getElementById("currentBalance").innerText;
-            const currentBalanceNumber= parseFloat(currentBalance);
-            const totalBalance= depositNumber+currentBalanceNumber;
-            document.getElementById("currentBalance").innerText= totalBalance;
-
-
-
-            document.getElementById("depositAmount").value= "";
-
+            document.getElementById("depositInput").value= "";
 
         });
+
+        // withdraw button event handler
+        const withdrawBtn = document.getElementById("withdrawBtn");
+        withdrawBtn.addEventListener("click",function(){
+            const withdrawInputNumber= getInputNumber("withdrawInput");
+
+            updateSpanText("currentWithdraw", withdrawInputNumber);
+            updateSpanText("currentBalance",-1* withdrawInputNumber);
+
+            document.getElementById("withdrawInput").value= "";
+        })
+
+        // get input number
+        function getInputNumber(id){
+            const Input= document.getElementById(id).value;
+            const InputNumber= parseFloat(Input);
+            return InputNumber;
+        }
+        // update span text
+        function updateSpanText(id,depositInputNumber){
+            const current= document.getElementById(id).innerText;
+            const currentNumber= parseFloat(current);
+            const total= depositInputNumber+currentNumber;
+            document.getElementById(id).innerText= total;
+        }
+
+
 
     </script>
     
